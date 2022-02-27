@@ -9,6 +9,9 @@ const loadPlayer = () => {
     // // else if(!isNaN(inputText)){
     // //   alert('Enter name of string')
     // }
+
+
+    //load All player---------------
     else{
         const url = (`https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${inputText}`)
         fetch(url)
@@ -16,9 +19,12 @@ const loadPlayer = () => {
         .then(data => displayPlayers(data.player))
     }
 }
+// toggole spinner method--------------
 const toggleSpinner = displayStyle => {
   document.getElementById('spinner').style.display = displayStyle;
 }
+
+// Display All Player by Name--------------
 const displayPlayers = players => {
   console.log(players)
     const main = document.getElementById('main');
@@ -52,14 +58,16 @@ const displayPlayers = players => {
        
 }
 
-// Load Player details----------------
+// Load Single Player details----------------
 const seeDetails= (playerId) =>{
+  toggleSpinner('block');
   
     fetch(`https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${playerId}`)
     .then(res => res.json())
     .then(data => displayDetail(data.players[0]))
 } 
-//See details Single player------------------->
+
+//Display details Single player------------------->
 const displayDetail = singlePlayer =>{
   const seeDetailsDiv = document.getElementById('see-detail');
     const div = document.createElement('div');
@@ -79,4 +87,5 @@ const displayDetail = singlePlayer =>{
   </div>
     `
     seeDetailsDiv.appendChild(div);
+    toggleSpinner('none');
 }
